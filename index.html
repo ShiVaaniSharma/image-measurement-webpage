@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Measurement Tool</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🖼️ Image Measurement Tool</h1>
+            <p class="subtitle">Upload, paste, or drag & drop an image to measure its dimensions.</p>
+        </header>
+
+        <div class="main-content">
+            <div class="controls-panel">
+                <h2>Controls</h2>
+                <div class="control-group">
+                    <label for="imageUpload" class="file-upload-label">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                            <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
+                        </svg>
+                        Upload Image
+                    </label>
+                    <input type="file" id="imageUpload" accept="image/*">
+                </div>
+
+                <div class="control-group">
+                    <label for="dpiInput">DPI (for cm/inch):</label>
+                    <input type="number" id="dpiInput" value="96" min="1">
+                </div>
+                <button id="resetButton" class="btn btn-danger">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+                        <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+                    </svg>
+                    Reset All
+                </button>
+            </div>
+
+            <!-- Group Image Display and Results together -->
+            <div class="image-and-results-area">
+                <div class="image-display-section">
+                    <div class="image-display-area" id="dropZone">
+                        <canvas id="imageCanvas"></canvas>
+                        <div id="image-placeholder">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-image-alt" viewBox="0 0 16 16">
+                                <path d="M7 2.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0zm4.225 4.053a.5.5 0 0 0-.577.093l-3.71 4.71-2.66-2.772a.5.5 0 0 0-.63.062L.002 13v2h16v-2h-.002l-3.27-4.225a.5.5 0 0 0-.63-.062l-2.66 2.772-3.71-4.71a.5.5 0 0 0-.577-.093z"/>
+                            </svg>
+                            <p>Click to upload, paste (Ctrl+V), or drag & drop an image here.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="results-panel">
+                    <div class="results-group">
+                        <h2>Original Image</h2>
+                        <p id="originalPx"></p>
+                        <p id="originalCm"></p>
+                        <p id="originalIn"></p>
+                    </div>
+
+                    <div class="results-group">
+                        <h2>Selected Area</h2>
+                        <p id="selectionInstructions">Click and drag on the image to select an area. <br>Click image again to clear selection.</p>
+                        <p id="selectedPx"></p>
+                        <p id="selectedPercent"></p>
+                        <p id="selectedCm"></p>
+                        <p id="selectedIn"></p>
+                    </div>
+                </div>
+            </div> <!-- End of image-and-results-area -->
+
+        </div> <!-- End of main-content -->
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

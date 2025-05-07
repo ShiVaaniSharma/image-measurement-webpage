@@ -1,0 +1,284 @@
+:root {
+    --primary-color: #007bff; /* Blue */
+    --primary-hover: #0056b3;
+    --danger-color: #dc3545; /* Red */
+    --danger-hover: #c82333;
+    --light-gray: #f8f9fa;
+    --medium-gray: #e9ecef;
+    --dark-gray: #6c757d;
+    --text-color: #343a40;
+    --border-color: #dee2e6;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --font-family: 'Montserrat', sans-serif;
+    --border-radius: 8px;
+}
+
+body {
+    font-family: var(--font-family);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    background-color: var(--light-gray);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align to top for long content */
+    min-height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    background: #fff;
+    padding: 25px 30px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 5px 15px var(--shadow-color);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+header h1 {
+    color: var(--primary-color);
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+header .subtitle {
+    font-size: 1.1em;
+    color: var(--dark-gray);
+    margin-top: 0;
+}
+
+.main-content {
+    display: grid;
+    grid-template-columns: 280px 1fr; /* Controls panel | Image & Results Area */
+    gap: 30px;
+}
+
+/* Wrapper for image and results to sit in the second column */
+.image-and-results-area {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Space between image area and results panel */
+}
+
+@media (max-width: 992px) { /* Stack main columns on smaller screens */
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+}
+/* No media query needed for results-panel specifically for stacking,
+   as flex-wrap will handle it, or we can add one if precise control is needed.
+   For now, let's assume they should try to stay side-by-side if space allows. */
+
+
+/* Controls Panel */
+.controls-panel {
+    background-color: var(--light-gray);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+}
+
+.controls-panel h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    color: var(--primary-color);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+.control-group {
+    margin-bottom: 20px;
+}
+
+.control-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-color);
+}
+
+.control-group input[type="number"],
+.control-group input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: calc(var(--border-radius) / 2);
+    box-sizing: border-box;
+    font-family: var(--font-family);
+    font-size: 0.95em;
+}
+.control-group input[type="number"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+
+/* Custom File Upload Button */
+input[type="file"]#imageUpload {
+    display: none; /* Hide the default file input */
+}
+.file-upload-label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 15px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: calc(var(--border-radius) / 2);
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+    width: 100%;
+    box-sizing: border-box;
+}
+.file-upload-label svg {
+    margin-right: 8px;
+}
+.file-upload-label:hover {
+    background-color: var(--primary-hover);
+}
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 15px;
+    font-weight: 500;
+    border: none;
+    border-radius: calc(var(--border-radius) / 2);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-family: var(--font-family);
+    width: 100%;
+    box-sizing: border-box;
+}
+.btn svg {
+    margin-right: 8px;
+}
+.btn-danger {
+    background-color: var(--danger-color);
+    color: white;
+}
+.btn-danger:hover {
+    background-color: var(--danger-hover);
+}
+
+
+/* Image Display Area */
+.image-display-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.image-display-area {
+    flex-grow: 1;
+    border: 2px dashed var(--border-color);
+    border-radius: var(--border-radius);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background-color: #fff;
+    min-height: 300px; /* Ensure it has some height */
+    overflow: hidden; /* To contain canvas if it's styled larger */
+}
+.image-display-area.dragover { /* Style for drag over */
+    border-color: var(--primary-color);
+    background-color: #e9f5ff;
+}
+
+#imageCanvas {
+    cursor: crosshair;
+    display: none; /* Initially hidden, shown by JS */
+    max-width: 100%;
+    max-height: 60vh; /* Limit canvas height for very tall images */
+    object-fit: contain;
+    border-radius: calc(var(--border-radius) / 2); /* Rounded corners for the image itself */
+}
+
+#image-placeholder {
+    color: var(--dark-gray);
+    text-align: center;
+    padding: 20px;
+    display: flex; /* Use flex for placeholder content */
+    flex-direction: column; /* Stack icon and text vertically */
+    justify-content: center;
+    align-items: center;
+}
+#image-placeholder svg {
+    margin-bottom: 15px;
+    color: var(--primary-color);
+    opacity: 0.7;
+}
+#image-placeholder p {
+    margin: 0;
+    font-size: 1.1em;
+}
+
+
+/* Results Panel - MODIFIED FOR SIDE-BY-SIDE */
+.results-panel {
+    display: flex;          /* 1. Make it a flex container */
+    flex-direction: row;    /* 2. Arrange items in a row */
+    flex-wrap: wrap;        /* 3. Allow items to wrap if not enough space */
+    gap: 20px;              /* 4. Space between the two results-group panels */
+    justify-content: space-between; /* Optional: distribute space */
+}
+
+.results-group {
+    background-color: var(--light-gray);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    flex: 1 1 0; /* 5. Allow groups to grow and shrink, with a base of 0. Min width can be set below. */
+    min-width: 250px; /* 6. Minimum width before wrapping. Adjust as needed. */
+    /* If you want them to always try to be 50/50, use flex-basis: calc(50% - 10px); (half of gap) */
+    /* For example: flex: 1 1 calc(50% - 10px); */
+}
+
+/* On smaller screens, if you want them to explicitly stack even if they *could* fit: */
+@media (max-width: 600px) { /* Adjust breakpoint as needed */
+    .results-panel {
+        flex-direction: column; /* Stack them vertically */
+    }
+    .results-group {
+        min-width: 100%; /* Take full width when stacked */
+    }
+}
+
+
+.results-group h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.3em;
+    color: var(--primary-color);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+.results-group p {
+    margin: 8px 0;
+    font-size: 0.95em;
+    word-break: break-all; /* Prevent long strings from breaking layout */
+}
+.results-group p:empty {
+    display: none;
+}
+
+#selectionInstructions {
+    font-style: italic;
+    color: var(--dark-gray);
+    font-size: 0.9em;
+    margin-bottom: 10px !important;
+}
