@@ -22,7 +22,7 @@ body {
     color: var(--text-color);
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Align to top for long content */
+    align-items: flex-start;
     min-height: 100vh;
 }
 
@@ -56,7 +56,7 @@ header .subtitle {
 
 .main-content {
     display: grid;
-    grid-template-columns: 280px 1fr; /* Controls panel | Image & Results Area */
+    grid-template-columns: 280px 1fr; 
     gap: 30px;
 }
 
