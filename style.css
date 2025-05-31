@@ -72,9 +72,6 @@ header .subtitle {
         grid-template-columns: 1fr;
     }
 }
-/* No media query needed for results-panel specifically for stacking,
-   as flex-wrap will handle it, or we can add one if precise control is needed.
-   For now, let's assume they should try to stay side-by-side if space allows. */
 
 
 /* Controls Panel */
