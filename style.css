@@ -250,7 +250,7 @@ input[type="file"]#imageUpload {
         flex-direction: column; /* Stack them vertically */
     }
     .results-group {
-        min-width: 100%; /* Take full width when stacked */
+        min-width: 100%;
     }
 }
 
@@ -267,7 +267,7 @@ input[type="file"]#imageUpload {
 .results-group p {
     margin: 8px 0;
     font-size: 0.95em;
-    word-break: break-all; /* Prevent long strings from breaking layout */
+    word-break: break-all;
 }
 .results-group p:empty {
     display: none;
